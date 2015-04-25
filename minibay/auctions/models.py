@@ -11,6 +11,7 @@ class Auction(models.Model):
     )
     current_bidder = models.ForeignKey(
         'auth.User', related_name='bid_auction_set',
+        null=True, blank=True,
     )
     end_date = models.DateTimeField(
         
