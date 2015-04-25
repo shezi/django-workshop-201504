@@ -18,7 +18,7 @@ def main(request):
     return render(request, 'auctions/main.djhtml', context)
 
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 def auction_EGAL(request, auction_id):
     context = {}
@@ -33,6 +33,19 @@ def auction_EGAL(request, auction_id):
         if not request.user.is_authenticated():
             context['message'] = 'Geht nur für angemeldete Benutzer!'
         else:
-            ...
+            try:
+                bid = int(request.POST['bid'])
+                if auction.current_amount >= bid:
+                    context['message'] = 'MEHR!!!'
+                else:  # auction.current_bid < bid
+                    auction.current_amount = bid
+                    auction.current_bidder = request.user
+                    auction.save()
+
+                    return redirect('.')
+                    
+            except ValueError:
+                context['message'] = 'Bitte geben Sie nur positive Zahlen ein!'
+            
 
     return render(request, 'auctions/auction_EGAL.djhtml', context)
