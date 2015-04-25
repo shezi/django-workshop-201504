@@ -24,9 +24,15 @@ def auction_EGAL(request, auction_id):
     context = {}
     auction_id = int(auction_id)
 
-    context['auction'] = get_object_or_404(
+    context['auction'] = auction = get_object_or_404(
         Auction,
         id=auction_id,
     )
+
+    if request.method == 'POST':
+        if not request.user.is_authenticated():
+            context['message'] = 'Geht nur für angemeldete Benutzer!'
+        else:
+            ...
 
     return render(request, 'auctions/auction_EGAL.djhtml', context)

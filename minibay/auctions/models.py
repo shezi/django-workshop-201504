@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Auction(models.Model):
 
@@ -24,3 +24,7 @@ class Auction(models.Model):
     def current_amount_display(self):
         """Gibt die Zahl als Kommazahl mit zwei Nachkommastellen aus."""
         return "{:0.2f}".format(self.current_amount / 100)
+
+    def expired(self):
+        """True gdw die Auktion abgelaufen ist."""
+        return self.end_date < timezone.now()
