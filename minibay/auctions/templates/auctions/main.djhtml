@@ -1,12 +1,18 @@
 <html>
 <head></head>
 
-
 <body>
 
-<h1 style="text-decoration: blink;">Yay</h1>
+<h1>Auktionen</h1>
 
-Hurra!
-
+<ul>
+{% for auction in auctions %}
+  <li>
+    {{ auction.title }} &mdash;
+       bis {{ auction.end_date }},
+       kostet {{ auction.current_amount_display }} €
+  </li>
+{% endfor %}
+</ul>
 
 </body>

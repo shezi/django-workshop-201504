@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Auction(models.Model):
 
     title = models.CharField(
@@ -19,3 +20,7 @@ class Auction(models.Model):
     seller = models.ForeignKey(
         'auth.User', related_name='sell_auction_set',
     )
+
+    def current_amount_display(self):
+        """Gibt die Zahl als Kommazahl mit zwei Nachkommastellen aus."""
+        return "{:0.2f}".format(self.current_amount / 100)
