@@ -16,3 +16,17 @@ def main(request):
     context['auctions'] = auctions
 
     return render(request, 'auctions/main.djhtml', context)
+
+
+from django.shortcuts import get_object_or_404
+
+def auction_EGAL(request, auction_id):
+    context = {}
+    auction_id = int(auction_id)
+
+    context['auction'] = get_object_or_404(
+        Auction,
+        id=auction_id,
+    )
+
+    return render(request, 'auctions/auction_EGAL.djhtml', context)
